@@ -71,14 +71,7 @@ secondNumber()
 function doTheMath() {
     const equals = document.querySelector("#result")
     equals.addEventListener("click", e => {
-        if (result.length > 0) {
-            number1 = ""
-            operator = ""
-            number2 = ""
-            result = ""
-            displayDefault = "0"
-            updateDisplay()
-        }
+
         if (operator === "+") {
             result = +number1 + +number2
             displayDefault = result
@@ -89,16 +82,16 @@ function doTheMath() {
             updateDisplay()
         } else if (operator === "x") {
             result = +number1 * +number2
-            displayDefault = Math.round(result * 100000) /100000
+            displayDefault = Math.round(result * 100000) / 100000
             updateDisplay()
         } else if (operator === "/") {
-            if(number2 === "0"){
+            if (number2 === "0") {
                 displayDefault = "Głupi?"
                 updateDisplay()
             } else {
                 result = +number1 / +number2
-            displayDefault = Math.round(result * 100000) /100000
-            updateDisplay()
+                displayDefault = Math.round(result * 100000) / 100000
+                updateDisplay()
             }
         }
         console.log(result)
@@ -138,7 +131,9 @@ function del() {
 
 del()
 
-function keepZero(){
+function keepZero() {
+    if (displayDefault.length < 1) {
         displayDefault = "0"
         updateDisplay()
     }
+}
