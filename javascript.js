@@ -7,7 +7,7 @@ let result = ""
 
 const operatorSymbol = ["x", "/", "+", "–"]
 
-const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."]
 
 function updateDisplay() {
     const display = document.querySelector(".display")
@@ -22,8 +22,8 @@ function firstNumber() {
     btn.forEach(button => {
         button.addEventListener("click", e => {
             let clickedButton = e.target.innerText
-            if (displayDefault.length < 9) {
-                if (numbers.includes(+clickedButton) && operator.length == 0) {
+            if (displayDefault.length <= 9) {
+                if (numbers.includes(clickedButton) && operator.length == 0) {
                     number1 += clickedButton
                     displayDefault = number1
                     updateDisplay()
@@ -54,8 +54,8 @@ function secondNumber() {
     btn.forEach(button => {
         button.addEventListener("click", e => {
             let clickedButton = e.target.innerText
-            if (displayDefault.length < 9) {
-                if (numbers.includes(+clickedButton) && operator.length == 1) {
+            if (displayDefault.length <= 9) {
+                if (numbers.includes(clickedButton) && operator.length > 0) {
                     number2 += clickedButton
                     displayDefault = number2
                     updateDisplay()
@@ -71,6 +71,14 @@ secondNumber()
 function doTheMath() {
     const equals = document.querySelector("#result")
     equals.addEventListener("click", e => {
+        if (result.length > 0) {
+            number1 = ""
+            operator = ""
+            number2 = ""
+            result = ""
+            displayDefault = "0"
+            updateDisplay()
+        }
         if (operator === "+") {
             result = +number1 + +number2
             displayDefault = result
@@ -81,12 +89,17 @@ function doTheMath() {
             updateDisplay()
         } else if (operator === "x") {
             result = +number1 * +number2
-            displayDefault = result
+            displayDefault = Math.round(result * 100000) /100000
             updateDisplay()
         } else if (operator === "/") {
-            result = +number1 / +number2
-            displayDefault = result
+            if(number2 === "0"){
+                displayDefault = "Głupi?"
+                updateDisplay()
+            } else {
+                result = +number1 / +number2
+            displayDefault = Math.round(result * 100000) /100000
             updateDisplay()
+            }
         }
         console.log(result)
     })
@@ -107,3 +120,25 @@ function reset() {
 }
 
 reset()
+
+function del() {
+    const removeLast = document.querySelector("#delete")
+    removeLast.addEventListener("click", e => {
+        if (number1.length > 0 && number2.length == 0) {
+            number1 = number1.slice(0, -1)
+            displayDefault = number1
+        } else if (number2.length > 0 && operator.length > 0) {
+            number2 = number2.slice(0, -1)
+            displayDefault = displayDefault.slice(0, -1)
+        }
+        updateDisplay()
+        keepZero()
+    })
+}
+
+del()
+
+function keepZero(){
+        displayDefault = "0"
+        updateDisplay()
+    }
