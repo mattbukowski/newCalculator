@@ -27,21 +27,24 @@ body {
     grid-template-rows: minmax(100px, auto) repeat(5, 100px);
     background-color: #1C1C1C;
     gap: 5px;
-    border-radius: 100px;
+    border-radius: 90px;
     height: 650px;
     overflow: hidden;
     padding: 20px;
+    border: solid;
+    border-color: silver;
+    border-width: 10px;
 }
 
 .display {
     background-color: #1C1C1C;
     grid-column: 1/-1;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: row-reverse;
     align-items: center;
     color: white;
     font-size: 5rem;
-    padding-right: 25px;
+    margin: 5px;
 }
 
 #zero {
@@ -75,4 +78,15 @@ button {
     border-radius: 100px;
     border: none;
     margin: 5px;
+}
+
+button:hover {
+    transform: scale(1.05);
+    border: solid;
+    border-color: gold;
+}
+
+.operatButton:focus {
+    color: #FF9500;
+    background-color: white;
 }
