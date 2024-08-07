@@ -1,0 +1,78 @@
+@font-face {
+    font-family: "Helvetica";
+    src: url(Helvetica\ Neue\ UltraLight.otf);
+}
+
+html {
+    background-color: azure;
+    text-align: center;
+}
+
+body {
+    font-family: "Helvetica";
+}
+
+.calculator {
+    display: flex;
+    min-height: 95vh;
+    height: 100hv;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: minmax(100px, auto) repeat(5, 100px);
+    background-color: #1C1C1C;
+    gap: 5px;
+    border-radius: 100px;
+    height: 650px;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.display {
+    background-color: #1C1C1C;
+    grid-column: 1/-1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: white;
+    font-size: 5rem;
+    padding-right: 25px;
+}
+
+#zero {
+    grid-column: span 2;
+    display: flex;
+    padding-left: 35px;
+    align-items: center;
+}
+
+#result {
+    grid-column: span 2;
+}
+
+.bottomButton {
+    background-color: #D4D4D2;
+    color: #1C1C1C;
+}
+
+.operatButton {
+    background-color:#FF9500;
+}
+
+.digitButton {
+    background-color: #505050;
+}
+
+button {
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    border-radius: 100px;
+    border: none;
+    margin: 5px;
+}
