@@ -5,7 +5,7 @@ let operator = ""
 let number2 = ""
 let result = ""
 
-const operatorSymbol = ["x", "/", "+", "–"]
+const operatorSymbol = ["x", "/", "+", "-"]
 
 const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."]
 
@@ -71,12 +71,11 @@ secondNumber()
 function doTheMath() {
     const equals = document.querySelector("#result")
     equals.addEventListener("click", e => {
-
         if (operator === "+") {
             result = +number1 + +number2
             displayDefault = result
             updateDisplay()
-        } else if (operator === "–") {
+        } else if (operator === "-") {
             result = +number1 - +number2
             displayDefault = result
             updateDisplay()
@@ -137,3 +136,112 @@ function keepZero() {
         updateDisplay()
     }
 }
+
+function getKeyboardNumber1() {
+    document.addEventListener("keydown", e => {
+        let keyName = e.key;
+        if (displayDefault.length <= 9) {
+            if (numbers.includes(keyName) && operator.length == 0) {
+                number1 += keyName
+                displayDefault = number1
+                updateDisplay()
+                console.log(number1)
+            }
+        }
+    })
+}
+
+getKeyboardNumber1()
+
+function getKeyboardOperator() {
+    document.addEventListener("keydown", e => {
+        let keyName = e.key;
+        if (operatorSymbol.includes(keyName)) {
+            operator = keyName
+            console.log(operator)
+        }
+    })
+}
+
+getKeyboardOperator()
+
+function getKeyboardNumber2() {
+    document.addEventListener("keydown", e => {
+        let keyName = e.key;
+        if (displayDefault.length <= 9) {
+            if (numbers.includes(keyName) && operator.length > 0) {
+                number2 += keyName
+                displayDefault = number2
+                updateDisplay()
+                console.log(number2)
+            }
+        }
+    })
+}
+
+getKeyboardNumber2()
+
+function doTheMathEnter() { 
+    document.addEventListener("keydown", e => {
+        if(e.key === "Enter") {
+            document.getElementById("result").focus
+            if (operator === "+") {
+                result = +number1 + +number2
+                displayDefault = result
+                updateDisplay()
+            } else if (operator === "-") {
+                result = +number1 - +number2
+                displayDefault = result
+                updateDisplay()
+            } else if (operator === "x") {
+                result = +number1 * +number2
+                displayDefault = Math.round(result * 100000) / 100000
+                updateDisplay()
+            } else if (operator === "/") {
+                if (number2 === "0") {
+                    displayDefault = "Głupi?"
+                    updateDisplay()
+                } else {
+                    result = +number1 / +number2
+                    displayDefault = Math.round(result * 100000) / 100000
+                    updateDisplay()
+                }
+            }
+            console.log(result)
+        }
+    })
+}
+doTheMathEnter()
+
+function backspace() {
+    document.addEventListener("keydown", e => {
+        if(e.key === "Backspace") {
+            if (number1.length > 0 && number2.length == 0) {
+                number1 = number1.slice(0, -1)
+                displayDefault = number1
+            } else if (number2.length > 0 && operator.length > 0) {
+                number2 = number2.slice(0, -1)
+                displayDefault = displayDefault.slice(0, -1)
+            }
+            updateDisplay()
+            keepZero()
+        }
+    })
+}
+
+backspace()
+
+function keyboardDel() {
+    document.addEventListener("keydown", e => {
+        if(e.key === "c" || e.key === "C") {
+            number1 = ""
+        operator = ""
+        number2 = ""
+        result = ""
+        displayDefault = "0"
+        updateDisplay()
+        }
+    })
+}
+
+keyboardDel()
